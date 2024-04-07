@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">toDoList</string>
     <string name="title_activity_add_task">AddTaskActivity</string>
+    <string name="trashIcon">Ícone de lixo</string>
 </resources>

@@ -22,7 +22,7 @@ public class TodoDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_TABLE_TODO = "CREATE TABLE " + Todo.TABLE  + "("
+        String CREATE_TABLE_TODO = "CREATE TABLE IF NOT EXISTS " + Todo.TABLE  + "("
                 + Todo.KEY_ID  + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
                 + Todo.KEY_task + " TEXT, "
                 + Todo.KEY_status + " INTEGER )";
@@ -68,5 +68,20 @@ public class TodoDatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return todoList;
+    }
+
+    public void deleteTask(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(Todo.TABLE, Todo.KEY_ID + " = ?", new String[] { String.valueOf(id)});
+        db.close();
+    }
+
+    public void updateStatus(int id, int status) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(Todo.KEY_status, status);
+
+        db.update(Todo.TABLE, values, Todo.KEY_ID + " = ?", new String[] { String.valueOf(id)});
+        db.close();
     }
 }

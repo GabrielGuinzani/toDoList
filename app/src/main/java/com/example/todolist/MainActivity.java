@@ -3,6 +3,8 @@ package com.example.todolist;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         db = new TodoDatabaseHelper(this);
         todoList = db.getAllTodos();
 
-        mAdapter = new TodoAdapter(todoList);
+        mAdapter = new TodoAdapter(todoList, db);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(mAdapter);
@@ -54,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateUI() {
         todoList = db.getAllTodos();
-        mAdapter = new TodoAdapter(todoList);
+        mAdapter = new TodoAdapter(todoList, db);
         recyclerView.setAdapter(mAdapter);
     }
+
 }
